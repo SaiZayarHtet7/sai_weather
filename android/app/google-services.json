@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "126245781987",
+    "project_id": "sai-zayar-htet-weather",
+    "storage_bucket": "sai-zayar-htet-weather.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126245781987:android:ad496133ec531c88bde0d6",
+        "android_client_info": {
+          "package_name": "com.example.sai_weather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126245781987-9g3phuv522bbma3ldgkm4j20p3ickjrs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_vJ6iFQIk9HYmZin-OErNBzb4cN8PmHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126245781987-9g3phuv522bbma3ldgkm4j20p3ickjrs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "126245781987-oa3n99q4v5m526enoejtuu89gkohk54v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.saiWeather"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

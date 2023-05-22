@@ -1,13 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:sai_weather/core/core.dart';
 import 'package:sai_weather/data/data.dart';
 import 'package:sai_weather/presentation/modules/city/bloc/fav_city_bloc.dart';
 
+import 'firebase_options.dart';
 import 'presentation/modules/city/city.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'presentation/modules/search_city/search_city.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseMessaging.instance
+      .subscribeToTopic("all_noti")
+      .then((value) => "subscribe topic".log(title: "noti topics"));
+
   runApp(const MyApp());
 }
 

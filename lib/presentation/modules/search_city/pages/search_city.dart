@@ -44,10 +44,9 @@ class _SearchCityState extends State<SearchCity> {
               controller: cityNameController,
               hint: StringUtils.enterCity,
               onChanged: (cityName) {
-                cityName.log();
-                // if (cityName.length > 2) {
-                context.read<SearchCityBloc>().add(RunSearchCity(cityName));
-                // }
+                WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                  context.read<SearchCityBloc>().add(RunSearchCity(cityName));
+                });
               },
             ),
             Expanded(
@@ -56,7 +55,7 @@ class _SearchCityState extends State<SearchCity> {
                 padding: EdgeInsets.only(top: PaddingUtils.p12),
                 child: BlocBuilder<SearchCityBloc, SearchCityState>(
                   builder: (context, state) {
-                    state.toString().log(title: "search city state ");
+                    // state.toString().log(title: "search city state ");
                     //loading state
                     if (state is SearchCityLoading) {
                       return const LoadingWidget();

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sai_weather/data/data.dart';
 import 'package:sai_weather/presentation/modules/weather_detail/weather_detail.dart';
 
 import '../../../../core/core.dart';
 import '../../../custom/custom.dart';
-import '../search_city.dart';
 
 class CityWidget extends StatelessWidget {
   final List<CityModel> cityList;
@@ -19,7 +17,6 @@ class CityWidget extends StatelessWidget {
         var city = cityList[index];
         return InkWell(
           onTap: () {
-
             context.push(WeatherDetail(cityModel: city));
           },
           child: Container(
