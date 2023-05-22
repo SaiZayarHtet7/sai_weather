@@ -9,6 +9,9 @@ class FontUtils {
   static TextStyle titleText = TextStyle(
       fontSize: 14, fontWeight: FontWeight.bold, color: ColorUtils.textColor);
 
-  static TextStyle nameText = TextStyle(
-      fontSize: 30, color: ColorUtils.textColor);
+  static TextStyle nameText =
+      TextStyle(fontSize: 30, color: ColorUtils.textColor);
+
+  static TextStyle captionText =
+      TextStyle(fontSize: 20, color: ColorUtils.textColor);
 }

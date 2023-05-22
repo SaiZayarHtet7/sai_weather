@@ -9,6 +9,13 @@ extension RouteExtension on BuildContext {
     widget.toStringShort().log();
   }
 
+  void pushOff(Widget widget) {
+    Navigator.of(this).pushReplacement(MaterialPageRoute(
+      builder: (context) => widget,
+    ));
+    widget.toStringShort().log();
+  }
+
   void back() {
     "back".log();
     Navigator.pop(this);

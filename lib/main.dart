@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sai_weather/data/data.dart';
+import 'package:sai_weather/presentation/modules/city/bloc/fav_city_bloc.dart';
 
 import 'presentation/modules/city/city.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +34,9 @@ class _AppWidgetState extends State<AppWidget> {
       providers: [
         BlocProvider<SearchCityBloc>(
           create: (context) => SearchCityBloc(ICityRepo()),
+        ),
+        BlocProvider<FavCityBloc>(
+          create: (context) => FavCityBloc()..add(CheckFavCityList()),
         ),
       ],
       child: const MaterialApp(

@@ -7,6 +7,12 @@ class StringUtils {
 
   static String enterCity = "Enter city name you want";
   static String noCity = "No City ";
+  static String hourly = "Hourly";
+  static String nextThreeDays = "Next Three Days";
+  static String threeDaysForecast = "3-DAY FORECAST";
+  static String minTemp = "(min)";
+  static String maxTemp = "(max)";
+  static String now = 'Now';
 
   static String serverFail = "Oops... Server is on error!";
   static String poorConnection = "Connection is not stable,Please try Again";

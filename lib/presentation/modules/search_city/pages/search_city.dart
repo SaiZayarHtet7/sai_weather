@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sai_weather/core/core.dart';
-import 'package:sai_weather/data/data.dart';
 import 'package:sai_weather/presentation/custom/custom.dart';
 import 'package:sai_weather/presentation/modules/search_city/search_city.dart';
-
-import '../bloc/search_city_bloc.dart';
 
 class SearchCity extends StatefulWidget {
   const SearchCity({super.key});
@@ -16,10 +13,16 @@ class SearchCity extends StatefulWidget {
 
 class _SearchCityState extends State<SearchCity> {
   final cityNameController = TextEditingController();
+  @override
+  void initState() {
+    context.read<SearchCityBloc>().add(const RunSearchCity(""));
+    super.initState();
+  }
 
   @override
   void dispose() {
     cityNameController.dispose();
+
     super.dispose();
   }
 
@@ -74,7 +77,7 @@ class _SearchCityState extends State<SearchCity> {
                     }
 
                     if (state is SearchCityData) {
-                      return DataWidget(cityList: state.cityList);
+                      return CityWidget(cityList: state.cityList);
                     }
                     return const SizedBox();
                   },

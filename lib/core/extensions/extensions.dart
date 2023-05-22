@@ -6,3 +6,4 @@ export 'snackbar_extension.dart';
 export 'route_extension.dart';
 export 'align_extension.dart';
 export 'device_size_extension.dart';
+export 'string_extension.dart';

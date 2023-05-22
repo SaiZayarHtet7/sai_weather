@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sai_weather/data/data.dart';
 import 'package:sai_weather/presentation/modules/weather_detail/weather_detail.dart';
 
 import '../../../../core/core.dart';
 import '../../../custom/custom.dart';
+import '../search_city.dart';
 
-class DataWidget extends StatelessWidget {
+class CityWidget extends StatelessWidget {
   final List<CityModel> cityList;
-  const DataWidget({super.key, required this.cityList});
+  const CityWidget({super.key, required this.cityList});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,7 @@ class DataWidget extends StatelessWidget {
         var city = cityList[index];
         return InkWell(
           onTap: () {
+
             context.push(WeatherDetail(cityModel: city));
           },
           child: Container(

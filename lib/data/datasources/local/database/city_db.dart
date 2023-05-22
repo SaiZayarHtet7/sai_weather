@@ -6,7 +6,7 @@ import '../../../data.dart';
 
 part 'city_db.g.dart';
 
-@Database(version: 1, entities: [CityModel])
-abstract class AppDatabase extends FloorDatabase {
-  CityDao get personDao;
+@Database(version: 2, entities: [CityModel])
+abstract class CityDatabase extends FloorDatabase {
+  CityDao get cityDao;
 }

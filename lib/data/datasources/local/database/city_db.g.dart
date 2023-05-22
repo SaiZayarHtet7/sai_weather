@@ -7,21 +7,21 @@ part of 'city_db.dart';
 // **************************************************************************
 
 // ignore: avoid_classes_with_only_static_members
-class $FloorAppDatabase {
+class $FloorCityDatabase {
   /// Creates a database builder for a persistent database.
   /// Once a database is built, you should keep a reference to it and re-use it.
-  static _$AppDatabaseBuilder databaseBuilder(String name) =>
-      _$AppDatabaseBuilder(name);
+  static _$CityDatabaseBuilder databaseBuilder(String name) =>
+      _$CityDatabaseBuilder(name);
 
   /// Creates a database builder for an in memory database.
   /// Information stored in an in memory database disappears when the process is killed.
   /// Once a database is built, you should keep a reference to it and re-use it.
-  static _$AppDatabaseBuilder inMemoryDatabaseBuilder() =>
-      _$AppDatabaseBuilder(null);
+  static _$CityDatabaseBuilder inMemoryDatabaseBuilder() =>
+      _$CityDatabaseBuilder(null);
 }
 
-class _$AppDatabaseBuilder {
-  _$AppDatabaseBuilder(this.name);
+class _$CityDatabaseBuilder {
+  _$CityDatabaseBuilder(this.name);
 
   final String? name;
 
@@ -30,23 +30,23 @@ class _$AppDatabaseBuilder {
   Callback? _callback;
 
   /// Adds migrations to the builder.
-  _$AppDatabaseBuilder addMigrations(List<Migration> migrations) {
+  _$CityDatabaseBuilder addMigrations(List<Migration> migrations) {
     _migrations.addAll(migrations);
     return this;
   }
 
   /// Adds a database [Callback] to the builder.
-  _$AppDatabaseBuilder addCallback(Callback callback) {
+  _$CityDatabaseBuilder addCallback(Callback callback) {
     _callback = callback;
     return this;
   }
 
   /// Creates the database and initializes it.
-  Future<AppDatabase> build() async {
+  Future<CityDatabase> build() async {
     final path = name != null
         ? await sqfliteDatabaseFactory.getDatabasePath(name!)
         : ':memory:';
-    final database = _$AppDatabase();
+    final database = _$CityDatabase();
     database.database = await database.open(
       path,
       _migrations,
@@ -56,12 +56,12 @@ class _$AppDatabaseBuilder {
   }
 }
 
-class _$AppDatabase extends AppDatabase {
-  _$AppDatabase([StreamController<String>? listener]) {
+class _$CityDatabase extends CityDatabase {
+  _$CityDatabase([StreamController<String>? listener]) {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
-  CityDao? _personDaoInstance;
+  CityDao? _cityDaoInstance;
 
   Future<sqflite.Database> open(
     String path,
@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `CityModel` (`country` TEXT NOT NULL, `id` INTEGER NOT NULL, `lat` REAL NOT NULL, `lon` REAL NOT NULL, `name` TEXT NOT NULL, `region` TEXT NOT NULL, `url` TEXT NOT NULL, `id` INTEGER NOT NULL, `name` TEXT NOT NULL, `region` TEXT NOT NULL, `country` TEXT NOT NULL, `lat` REAL NOT NULL, `lon` REAL NOT NULL, `url` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `CityModel` (`country` TEXT NOT NULL, `id` INTEGER NOT NULL, `lat` REAL NOT NULL, `lon` REAL NOT NULL, `name` TEXT NOT NULL, `region` TEXT NOT NULL, `url` TEXT NOT NULL,  PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -94,8 +94,8 @@ class _$AppDatabase extends AppDatabase {
   }
 
   @override
-  CityDao get personDao {
-    return _personDaoInstance ??= _$CityDao(database, changeListener);
+  CityDao get cityDao {
+    return _cityDaoInstance ??= _$CityDao(database, changeListener);
   }
 }
 
@@ -103,7 +103,7 @@ class _$CityDao extends CityDao {
   _$CityDao(
     this.database,
     this.changeListener,
-  )   : _queryAdapter = QueryAdapter(database, changeListener),
+  )   : _queryAdapter = QueryAdapter(database),
         _cityModelInsertionAdapter = InsertionAdapter(
             database,
             'CityModel',
@@ -115,15 +115,7 @@ class _$CityDao extends CityDao {
                   'name': item.name,
                   'region': item.region,
                   'url': item.url,
-                  'id': item.id,
-                  'name': item.name,
-                  'region': item.region,
-                  'country': item.country,
-                  'lat': item.lat,
-                  'lon': item.lon,
-                  'url': item.url
-                },
-            changeListener);
+                });
 
   final sqflite.DatabaseExecutor database;
 
@@ -134,8 +126,8 @@ class _$CityDao extends CityDao {
   final InsertionAdapter<CityModel> _cityModelInsertionAdapter;
 
   @override
-  Future<List<CityModel>> findAllPeople() async {
-    return _queryAdapter.queryList('SELECT * FROM City',
+  Future<List<CityModel>> getAllFavCity() async {
+    return _queryAdapter.queryList('SELECT * FROM CityModel',
         mapper: (Map<String, Object?> row) => CityModel(
             country: row['country'] as String,
             id: row['id'] as int,
@@ -147,16 +139,8 @@ class _$CityDao extends CityDao {
   }
 
   @override
-  Stream<List<String>> getAllCity() {
-    return _queryAdapter.queryListStream('SELECT name FROM City',
-        mapper: (Map<String, Object?> row) => row.values.first as String,
-        queryableName: 'City',
-        isView: false);
-  }
-
-  @override
-  Stream<CityModel?> findCityById(int id) {
-    return _queryAdapter.queryStream('SELECT * FROM Person WHERE id = ?1',
+  Future<List<CityModel>> findCityById(int id) async {
+    return _queryAdapter.queryList('SELECT * FROM CityModel WHERE id = ?1',
         mapper: (Map<String, Object?> row) => CityModel(
             country: row['country'] as String,
             id: row['id'] as int,
@@ -165,13 +149,17 @@ class _$CityDao extends CityDao {
             name: row['name'] as String,
             region: row['region'] as String,
             url: row['url'] as String),
-        arguments: [id],
-        queryableName: 'Person',
-        isView: false);
+        arguments: [id]);
   }
 
   @override
-  Future<void> addFavoriteCity(CityModel person) async {
-    await _cityModelInsertionAdapter.insert(person, OnConflictStrategy.abort);
+  Future<void> removeFav(int id) async {
+    await _queryAdapter
+        .queryNoReturn('DELETE FROM CityModel WHERE id =?1', arguments: [id]);
+  }
+
+  @override
+  Future<void> addFavoriteCity(CityModel city) async {
+    await _cityModelInsertionAdapter.insert(city, OnConflictStrategy.abort);
   }
 }
