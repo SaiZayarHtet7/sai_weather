@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +14,17 @@ import 'presentation/modules/search_city/search_city.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await FirebaseMessaging.instance
-      .subscribeToTopic("all_noti")
-      .then((value) => "subscribe topic".log(title: "noti topics"));
+  var connectivityResult = await Connectivity().checkConnectivity();
+
+  //check for offline mode
+  if ((connectivityResult == ConnectivityResult.mobile ||
+      connectivityResult == ConnectivityResult.wifi)) {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+    await FirebaseMessaging.instance
+        .subscribeToTopic("all_noti")
+        .then((value) => "subscribe topic".log(title: "noti topics"));
+  }
 
   runApp(const MyApp());
 }

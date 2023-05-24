@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "126245781987-la1ec89crqobg597o4tbeqc1ra47uqt1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sai_weather",
+            "certificate_hash": "35a8fa3eae5d6737ddb25ce65741e8139e2987a0"
+          }
+        },
+        {
+          "client_id": "126245781987-uo6r6ehfnd6lku2bbt50gc263l7g97jk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sai_weather",
+            "certificate_hash": "4e772f177707fc911bd635c470bcae155c92db62"
+          }
+        },
+        {
           "client_id": "126245781987-9g3phuv522bbma3ldgkm4j20p3ickjrs.apps.googleusercontent.com",
           "client_type": 3
         }

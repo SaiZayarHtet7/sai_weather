@@ -1,6 +1,6 @@
 class StringUtils {
   static String searchCity = "Search City";
-  static String favoriteCities = "Favorite Cities";
+  static String favoriteCities = "Favorite Cities List";
   static String confirm = "အတည်ပြုမည်";
   static String pleaseWait = "Please Wait ...";
   static String warningCityText = "Please add at least three characters";

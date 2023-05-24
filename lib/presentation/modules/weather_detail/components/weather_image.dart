@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/core.dart';
@@ -20,8 +21,9 @@ class WeatherImage extends StatelessWidget {
         Expanded(
           child: Center(
               child: FittedBox(
-            child: Image.network(
-              "https:${forecastResponseModel.current!.condition.icon}",
+            child: CachedNetworkImage(
+              imageUrl:
+                  "https:${forecastResponseModel.current!.condition.icon}",
               width: 150,
               height: 150,
               fit: BoxFit.cover,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sai_weather/core/core.dart';
 
@@ -39,7 +40,7 @@ class HourlyForecast extends StatelessWidget {
         itemCount: hourList.length,
         itemBuilder: (context, index) {
           EachHourModel eachHour = hourList[index];
-          eachHour.toJson().toString().log();
+          // eachHour.toJson().toString().log();
           String hour =
               DateTime.fromMillisecondsSinceEpoch(eachHour.timeEpoch! * 1000)
                   .toString()
@@ -54,8 +55,8 @@ class HourlyForecast extends StatelessWidget {
               children: [
                 WeatherText(index == 0 ? "Now" : hour),
                 Expanded(
-                  child: Image.network(
-                    "https:${eachHour.condition!.icon}",
+                  child: CachedNetworkImage(
+                    imageUrl: "https:${eachHour.condition!.icon}",
                     width: 40,
                     height: 40,
                     fit: BoxFit.contain,

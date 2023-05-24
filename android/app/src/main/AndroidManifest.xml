@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sai_weather">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="sai_weather"
         android:name="${applicationName}"

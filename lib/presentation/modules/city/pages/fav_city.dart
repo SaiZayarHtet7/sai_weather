@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,70 @@ class FavCity extends StatefulWidget {
 }
 
 class _FavCityState extends State<FavCity> {
+  /// Initialize the [FlutterLocalNotificationsPlugin] package.
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  @override
+  void initState() {
+    super.initState();
+    registerNotification();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: WeatherText(
+          StringUtils.favoriteCities,
+          color: Colors.white,
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.push(const SearchCity());
+            },
+            icon: const Icon(
+              Icons.search_rounded,
+              size: 30,
+            ),
+          ),
+        ],
+      ),
+      body: Container(
+        padding: EdgeInsets.all(PaddingUtils.p12),
+        child: BlocBuilder<FavCityBloc, FavCityState>(
+          builder: (context, state) {
+            // state.toString().log(title: "fav city state ");
+            if (state is FavCityData) {
+              return CityWidget(cityList: state.cityList);
+            }
+            if (state is FavCityLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Center(
+                child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const WeatherText("No City "),
+                10.height,
+                WeatherButton(
+                  onPressed: () {
+                    context.push(const SearchCity());
+                  },
+                  text: StringUtils.searchCity,
+                ),
+              ],
+            ));
+          },
+        ),
+      ),
+    );
+  }
+
   void registerNotification() async {
     await setupFlutterNotifications();
     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -86,61 +151,5 @@ class _FavCityState extends State<FavCity> {
         ),
       );
     }
-  }
-
-  /// Initialize the [FlutterLocalNotificationsPlugin] package.
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
-  @override
-  void initState() {
-    registerNotification();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: WeatherText(
-          StringUtils.favoriteCities,
-          color: Colors.white,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.push(const SearchCity());
-            },
-            icon: const Icon(
-              Icons.search_rounded,
-              size: 30,
-            ),
-          ),
-        ],
-      ),
-      body: Container(
-        padding: EdgeInsets.all(PaddingUtils.p12),
-        child: BlocBuilder<FavCityBloc, FavCityState>(
-          builder: (context, state) {
-            // state.toString().log(title: "fav city state ");
-            if (state is FavCityData) {
-              return CityWidget(cityList: state.cityList);
-            }
-            if (state is FavCityLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return Center(
-                child: WeatherButton(
-              onPressed: () {
-                context.push(const SearchCity());
-              },
-              text: StringUtils.searchCity,
-            ));
-          },
-        ),
-      ),
-    );
   }
 }

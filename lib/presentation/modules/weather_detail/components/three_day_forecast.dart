@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/core.dart';
@@ -63,8 +64,8 @@ class ThreeDayForecast extends StatelessWidget {
                 children: [
                   Flexible(child: FittedBox(child: WeatherText(showDate))),
                   10.width,
-                  Image.network(
-                    image,
+                  CachedNetworkImage(
+                    imageUrl: image,
                     width: 40,
                     height: 40,
                     fit: BoxFit.cover,

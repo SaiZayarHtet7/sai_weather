@@ -13,7 +13,7 @@ class ForecastDetailBloc
   ForecastDetailBloc(this.cityRepo) : super(ForecastDetailInitial()) {
     on<GetForecastDetail>((event, emit) async {
       emit(ForecastDetailLoading());
-      final data = await cityRepo.getForeCast(cityName: event.cityModel.name);
+      final data = await cityRepo.getForeCast(cityModel: event.cityModel);
       data.fold((error) {
         ///for error message
         String errMessage = "";

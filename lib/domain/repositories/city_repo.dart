@@ -7,5 +7,5 @@ abstract class CityRepo {
       {required String cityName});
 
   Future<Either<Failure, ForecastResponseModel>> getForeCast(
-      {required String cityName});
+      {required CityModel cityModel});
 }
