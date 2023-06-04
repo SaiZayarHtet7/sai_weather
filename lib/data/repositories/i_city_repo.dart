@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:intl/intl.dart';
 import 'package:sai_weather/core/core.dart';
 import 'package:sai_weather/core/utils/method_utils.dart';
 import 'package:sai_weather/data/data.dart';

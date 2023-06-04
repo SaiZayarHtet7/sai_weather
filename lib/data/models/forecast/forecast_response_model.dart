@@ -1,4 +1,3 @@
-import 'package:sai_weather/data/models/weather/condition_model.dart';
 import 'package:sai_weather/data/models/forecast/fc_model.dart';
 import 'package:sai_weather/domain/domain.dart';
 import 'package:json_annotation/json_annotation.dart';
