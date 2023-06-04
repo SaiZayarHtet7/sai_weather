@@ -1,16 +1,7 @@
 # sai_weather
 
-A new Flutter project.
+Weather app using clean architecture DDD framework
 
-## Getting Started
+- [get android release apk](<https://github.com/SaiZayarHtet7/sai_weather/blob/master/sai_weather(4-Jun-2023).apk>)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+By Sai Zayar Htet
